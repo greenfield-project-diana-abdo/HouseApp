@@ -22,8 +22,9 @@ const Navbar = () => {
                         {userRole === 'Houseowner' && (
                             <>
                                 <li><Link to="/cleanersList">Search for Cleaners</Link></li>
-                                <li><Link to={`/settings/${userId}`}>Settings</Link></li> 
+                                <li><Link to={`/settings/${userId}`}>My Settings</Link></li> 
                                 <li><Link to="/create-property">Create Property</Link></li> 
+                                <li><Link to="/my-booked-list">My Bookings</Link></li>
                                 <li><Link to="/propertyList">All Property</Link></li> 
                                 
                             </>
@@ -31,11 +32,16 @@ const Navbar = () => {
                         {userRole === 'Cleaner' && (
                             <>
                                 <li><Link to="/propertyList">Search Posts</Link></li>
-                                <li><Link to={`/settings/${userId}`}>Settings</Link></li> 
+                                <li><Link to="/my-booked-list">My Bookings</Link></li>
+                                <li><Link to={`/settings/${userId}`}>My Settings</Link></li> 
                             </>
                         )}
                         {userRole === 'Admin' && (
+                            <>
                             <li><Link to="/admin-panel">Admin Panel</Link></li>
+                            <li><Link to="/my-booked-list">All Bookings</Link></li>
+                            <li><Link to="/propertyList">All Property</Link></li> 
+                            </>
                         )}
                     </>
                 ) : (

@@ -1,59 +1,43 @@
-const Event = require('../model/Event');
+const Booking = require('../model/Event');
 
-const createEvent = async (req, res) => {
-    try {
-      const event = new Event(req.body);
-      const savedEvent = await event.save();
-      res.status(201).json(savedEvent);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
+// Create a new booking
+exports.createBooking = async (req, res) => {
+    const { date, time, additionalInfo, userId, cleanerId } = req.body; 
+
+    if (!userId || !cleanerId) {
+        return res.status(400).json({ msg: 'User ID and Cleaner ID are required.' });
     }
-  };
 
-
-const getAllEvents = async (req, res) => {
     try {
-      const events = await Event.find();
-      res.status(200).json(events);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
+        const newBooking = new Booking({ userId, cleanerId, date, time, additionalInfo });
+        await newBooking.save();
+        res.status(201).json({ msg: 'Booking created successfully', booking: newBooking });
+    } catch (error) {
+        console.error("Error creating booking:", error);
+        res.status(500).json({ msg: 'Error creating booking', error });
     }
-  };  
+};
 
-const getEventById = async (req, res) => {
+// Get all bookings for a user
+exports.getUserBookings = async (req, res) => {
+    const userId = req.user.userId; 
+    const userRole = req.user.role; 
+    console.log("Fetching bookings for user ID:", userId); // Log 
+
     try {
-      const event = await Event.findById(req.params.id);
-      if (!event) return res.status(404).json({ message: 'Event not found' });
-      res.status(200).json(event);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
+        let bookings;
+        if (userRole === 'Cleaner') {
+  
+            bookings = await Booking.find({ cleanerId: userId }).populate('userId', 'fullName'); 
+        } else {
+
+            bookings = await Booking.find({ userId }).populate('cleanerId', 'fullName');
+        }
+
+        console.log("Bookings found:", bookings); // Log 
+        res.status(200).json(bookings);
+    } catch (error) {
+        console.error("Error fetching bookings:", error);
+        res.status(500).json({ msg: 'Error fetching bookings', error });
     }
-  };
-
-const updateEvent = async (req, res) => {
-    try {
-      const updatedEvent = await Event.findByIdAndUpdate(req.params.id, req.body, {
-        new: true, // Return the updated document
-        runValidators: true, // Ensure validation rules are applied
-      });
-      if (!updatedEvent) return res.status(404).json({ message: 'Event not found' });
-      res.status(200).json(updatedEvent);
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-  };
-
-const deleteEvent = async (req, res) => {
-    try {
-      const deletedEvent = await Event.findByIdAndDelete(req.params.id);
-      if (!deletedEvent) return res.status(404).json({ message: 'Event not found' });
-      res.status(200).json({ message: 'Event deleted successfully' });
-    } catch (err) {
-      res.status(500).json({ error: err.message });
-    }
-  };
-
-
-
-
-  module.exports = {createEvent, getAllEvents, getEventById, updateEvent, deleteEvent}
+};

@@ -13,7 +13,8 @@ import UserProfile from './components/UserProfile';
 import Settings from './components/Settings'; 
 import CreateProperty from './components/CreateProperty'; 
 import EditProperty from './components/Property/EditProperty'; 
-
+import BookAppointment from './components/BookAppointment';
+import MyBookedList from './components/MyBookedList';
 
 const App = () => {
     return (
@@ -33,6 +34,8 @@ const App = () => {
                 <Route path="/settings/:id" element={<Settings />} /> {/* settings */}
                 <Route path="/create-property" element={<CreateProperty />} /> {/* creating properties */}
                 <Route path="/edit-property/:id" element={<EditProperty />} /> {/* Route for editing a property's details */}
+                <Route path="/book-appointment/:cleanerId" element={<BookAppointment />} />
+                <Route path="/my-booked-list" element={<MyBookedList />} />
                 <Route path="/" element={<h1>Welcome to the Property Management App</h1>} />
             </Routes>
         </>
