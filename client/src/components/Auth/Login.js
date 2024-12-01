@@ -43,25 +43,35 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
+        <div className=" form-floating mt-4 mb-2 p-3 container d-flex flex-column align-items-center justify-content-center">
+            <h2 className="mb-3">Login</h2>
+
             <form onSubmit={handleSubmit}>
-                <input 
+                <div className="mb-3">
+                <input
                     type="email" 
-                    placeholder="Email" 
+                    placeholder="name@example.com" 
                     value={email} 
                     onChange={(e) => setEmail(e.target.value)} 
                     required 
+                    class="form-control"
                 />
+                </div>
+                <div className="mb-3">
                 <input 
                     type="password" 
                     placeholder="Password" 
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
                     required 
+                    class="form-control" 
                 />
-                <button type="submit">Login</button>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Login</button>
+               
             </form>
+          
             {message && <p>{message}</p>}
         </div>
     );

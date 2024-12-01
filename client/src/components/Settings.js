@@ -65,63 +65,92 @@ const Settings = () => {
     };
 console.log(userData)
     return (
-        <div>
-            <h2>User Settings</h2>
+        <div className=" form-floating mt-4 mb-2 p-3 container d-flex flex-column align-items-center justify-content-center">
+
+            <h2 className="mb-3">User Settings</h2>
             {loading ? (
-                <p>Loading user data...</p>
+                <p class="spinner-border spinner-border-sm" aria-hidden="true">Loading user data...</p>
             ) : (
                 <form onSubmit={handleSubmit}>
-                    <input 
-                        type="text" 
-                        name="firstName" 
-                        value={userData.firstName} 
-                        onChange={handleChange} 
-                        placeholder="First Name"
-                        required 
-                    />
-                    <input 
-                        type="text" 
-                        name="surname" 
-                        value={userData.surname} 
-                        onChange={handleChange} 
-                        placeholder="Surname"
-                        required 
-                    />
-                    <input 
-                        type="email" 
-                        name="email" 
-                        value={userData.email} 
-                        onChange={handleChange} 
-                        placeholder="Email"
-                        required 
-                    />
-                    <input 
-                        type="text" 
-                        name="location" 
-                        value={userData.location} 
-                        onChange={handleChange} 
-                        placeholder="Location"
-                    />
-                    <input 
-                        type="number" 
-                        name="experiences" 
-                        value={userData.experiences} 
-                        onChange={handleChange} 
-                        placeholder="Years of Experience"
-                    />
-                    <input 
-                        type="text" 
-                        name="references" 
-                        value={userData.references} 
-                        onChange={handleChange} 
-                        placeholder="References"
-                    />
-                    <select name="role" value={userData.role} onChange={handleChange} required>
-                        <option value="">Select Role</option>
-                        <option value="Cleaner">Cleaner</option>
-                        <option value="Houseowner">Houseowner</option>
-                    </select>
-                    <button type="submit">Update User</button>
+                    <div className="mb-3">
+                        <input 
+                            type="text" 
+                            name="firstName" 
+                            value={userData.firstName} 
+                            onChange={handleChange} 
+                            placeholder="First Name"
+                            required 
+                            className="m-3"
+                        />
+                        <input 
+                            type="text" 
+                            name="surname" 
+                            value={userData.surname} 
+                            onChange={handleChange} 
+                            placeholder="Surname"
+                            required 
+                            className="m-3"
+                        />
+                    </div>
+
+                    <div className="mb-3">
+                      
+                        <input 
+                            type="email" 
+                            name="email" 
+                            value={userData.email} 
+                            onChange={handleChange} 
+                            placeholder="Email"
+                            required 
+                            className="m-3"
+                        />
+                            
+                        <input 
+                            type="text" 
+                            name="location" 
+                            value={userData.location} 
+                            onChange={handleChange} 
+                            placeholder="Location"
+                            className="m-3"
+                        />
+                     </div>
+                    
+
+                    <div>
+                        <input 
+                            type="number" 
+                            name="experiences" 
+                            value={userData.experiences} 
+                            onChange={handleChange} 
+                            placeholder="Years of Experience"
+                            className="m-3"
+                        />
+                        <input 
+                            type="text" 
+                            name="references" 
+                            value={userData.references} 
+                            onChange={handleChange} 
+                            placeholder="References"
+                            className="m-3"
+                        />
+                    </div>
+
+                    <div className="d-flex justify-content-center">
+                        <select 
+                            name="role" 
+                            value={userData.role} 
+                            onChange={handleChange} 
+                            required
+                            className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                        >
+                                <option value="">Select Role</option>
+                                <option value="Cleaner">Cleaner</option>
+                                <option value="Houseowner">Houseowner</option>
+
+                        </select>
+
+                        <button type="submit" className="btn btn-primary ms-4 ">Update User</button>
+                    </div>
                 </form>
             )}
             {message && <p>{message}</p>} 
