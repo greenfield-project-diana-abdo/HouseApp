@@ -13,6 +13,7 @@ const PropertyDetail = () => {
         const fetchPropertyDetails = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/properties/${id}`);
+                console.log(response.data)
                 setProperty(response.data);
             } catch (err) {
                 if (err.response) {
@@ -47,7 +48,7 @@ const PropertyDetail = () => {
 
     const currentUserId = localStorage.getItem('userId'); 
     const isOwner = currentUserId === String(property.userId); 
-   
+   console.log(property)
     return (
         <div>
             <h2>Property Details</h2>
@@ -58,7 +59,7 @@ const PropertyDetail = () => {
                     <p><strong>Price per Hour:</strong> ${property.pricePerHour}</p>
                     <p><strong>Type of Service:</strong> {property.typeOfService}</p>
                     <p><strong>House Size:</strong> {property.houseSize} m²</p>
-                    <p><strong>Posted by:</strong> {property.fullName}</p>
+                    <p><strong>Posted by:</strong> {`${property.userId.firstName} ${property.userId.surname}`}</p>
 
                  
                     {isOwner && (

@@ -144,7 +144,7 @@ const updateUser = async (req, res) => {
         const { id } = req.params; 
         const { firstName, surname, email, location, experiences, references, role } = req.body;
 
-    
+    console.log(req.body)
        if (!firstName || !surname || !email || !role) {
            return res.status(400).send({ msg: "Some information is missing." });
        }

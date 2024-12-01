@@ -50,15 +50,20 @@ const Settings = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await updateUser(id, userData); 
+            let response = await updateUser(id, userData);
+            console.log(response.data.updatedUser)
+            setUserData(response.data.updatedUser);
+        
+
             setMessage("User information updated successfully!");
             navigate('/'); 
+
         } catch (error) {
             console.error("Error updating user:", error);
             setMessage("Error updating user information.");
         }
     };
-
+console.log(userData)
     return (
         <div>
             <h2>User Settings</h2>
