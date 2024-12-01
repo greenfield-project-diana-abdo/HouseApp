@@ -38,7 +38,7 @@ const createProperty = async (req, res) => {
 
 const getProperties = async (req, res) => {
     try {
-        const properties = await Property.find().populate("userId", "fullName"); 
+        const properties = await Property.find().populate("userId"); 
         return res.status(200).json(properties); 
     } catch (error) {
         console.error("Error fetching properties:", error);
@@ -49,7 +49,7 @@ const getProperties = async (req, res) => {
 const getPropertyById = async (req, res) => {
     const { id } = req.params; 
     try {
-        const property = await Property.findById(id); 
+        const property = await Property.findById(id).populate("userId")
         if (!property) {
             return res.status(404).send({ msg: "Property not found." }); 
         }
@@ -76,12 +76,11 @@ console.log(req.user)
             return res.status(403).send({ msg: "You do not have permission to edit this property." });
         }
 
-
         property.title = title || property.title;
         property.description = description || property.description;
         property.pricePerHour = pricePerHour || property.pricePerHour;
         property.typeOfService = typeOfService || property.typeOfService;
-        property.houseSize = houseSize || property.houseSize;    
+        property.houseSize = houseSize || property.houseSize; 
       
         await property.save();
         return res.status(200).send({ msg: "Property updated successfully!", property });

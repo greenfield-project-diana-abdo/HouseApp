@@ -28,7 +28,7 @@ const PropertyList = () => {
 
     if (loading) return <p>Loading properties...</p>;
     if (error) return <p>{error}</p>;
-
+console.log(properties)
     return (
         <div>
             <h2>Property Listings</h2>
@@ -39,7 +39,7 @@ const PropertyList = () => {
                     {properties.map(property => (
                         <li key={property._id}>
                             <Link to={`/properties/${property._id}`}>
-                                {property.fullName} - {property.title}
+                                {property.userId && `${property.userId.firstName} ${property.userId.surname}`} - {property.title}
                             </Link>
                         </li>
                     ))}
