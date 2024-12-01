@@ -1,15 +1,14 @@
-const express = require ('express');
-const {createEvent, getAllEvents, getEventById, updateEvent, deleteEvent} = require ('../controllers/event.controller');
+
+const express = require('express');
+const { createBooking, getUserBookings } = require('../controllers/event.controller');
+const verifyToken = require('../middleware/auth'); 
+
+
 const router = express.Router();
 
-router.post('/', createEvent); 
-router.get('/', getAllEvents); 
-router.get('/:id', getEventById); 
-router.put('/:id', updateEvent); 
-router.delete('/:id', deleteEvent); 
+
+router.post('/', verifyToken, createBooking);
+
+router.get('/', verifyToken, getUserBookings);
 
 module.exports = router;
-
-
-
-
