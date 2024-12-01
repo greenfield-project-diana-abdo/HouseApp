@@ -80,7 +80,11 @@ const CreateProperty = () => {
             </div>    
 
             <div className="m-3">
-                <select value={typeOfService} onChange={(e) => setTypeOfService(e.target.value)} required>
+                <select 
+                    value={typeOfService} 
+                    onChange={(e) => setTypeOfService(e.target.value)} 
+                    required
+                    class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                     <option value="">Select Type of Service</option>
                     <option value="Deep cleaning">Deep cleaning</option>
                     <option value="Laundry services">Laundry services</option>
