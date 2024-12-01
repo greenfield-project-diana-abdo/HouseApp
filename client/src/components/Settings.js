@@ -16,11 +16,10 @@ const Settings = () => {
     });
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
+    const [submitting, setSubmitting] = useState(false); // State 
 
-    
     const loggedInUserId = localStorage.getItem('userId');
 
-    
     useEffect(() => {
         if (id !== loggedInUserId) {
             setMessage("You are not authorized to view this page.");
@@ -49,21 +48,30 @@ const Settings = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setSubmitting(true); 
         try {
-            let response = await updateUser(id, userData);
-            console.log(response.data.updatedUser)
-            setUserData(response.data.updatedUser);
-        
-
+            await updateUser(id, userData); 
             setMessage("User information updated successfully!");
-            navigate('/'); 
 
+            // Update local storage 
+            if (loggedInUserId === id) {
+                localStorage.setItem('fullName', `${userData.firstName} ${userData.surname}`);
+              
+            }
+
+            navigate('/'); 
         } catch (error) {
             console.error("Error updating user:", error);
-            setMessage("Error updating user information.");
+            if (error.response && error.response.data) {
+                setMessage(`Error updating user information: ${error.response.data.msg}`);
+            } else {
+                setMessage("Error updating user information.");
+            }
+        } finally {
+            setSubmitting(false); 
         }
     };
-console.log(userData)
+
     return (
         <div>
             <h2>User Settings</h2>
@@ -71,57 +79,80 @@ console.log(userData)
                 <p>Loading user data...</p>
             ) : (
                 <form onSubmit={handleSubmit}>
-                    <input 
-                        type="text" 
-                        name="firstName" 
-                        value={userData.firstName} 
-                        onChange={handleChange} 
-                        placeholder="First Name"
-                        required 
-                    />
-                    <input 
-                        type="text" 
-                        name="surname" 
-                        value={userData.surname} 
-                        onChange={handleChange} 
-                        placeholder="Surname"
-                        required 
-                    />
-                    <input 
-                        type="email" 
-                        name="email" 
-                        value={userData.email} 
-                        onChange={handleChange} 
-                        placeholder="Email"
-                        required 
-                    />
-                    <input 
-                        type="text" 
-                        name="location" 
-                        value={userData.location} 
-                        onChange={handleChange} 
-                        placeholder="Location"
-                    />
-                    <input 
-                        type="number" 
-                        name="experiences" 
-                        value={userData.experiences} 
-                        onChange={handleChange} 
-                        placeholder="Years of Experience"
-                    />
-                    <input 
-                        type="text" 
-                        name="references" 
-                        value={userData.references} 
-                        onChange={handleChange} 
-                        placeholder="References"
-                    />
-                    <select name="role" value={userData.role} onChange={handleChange} required>
-                        <option value="">Select Role</option>
-                        <option value="Cleaner">Cleaner</option>
-                        <option value="Houseowner">Houseowner</option>
-                    </select>
-                    <button type="submit">Update User</button>
+                    <label>
+                        First Name:
+                        <input 
+                            type="text" 
+                            name="firstName" 
+                            value={userData.firstName} 
+                            onChange={handleChange} 
+                            placeholder="First Name"
+                            required 
+                        />
+                    </label>
+                    <label>
+                        Surname:
+                        <input 
+                            type="text" 
+                            name="surname" 
+                            value={userData.surname} 
+                            onChange={handleChange} 
+                            placeholder="Surname"
+                            required 
+                        />
+                    </label>
+                    <label>
+                        Email:
+                        <input 
+                            type="email" 
+                            name="email" 
+                            value={userData.email} 
+                            onChange={handleChange} 
+                            placeholder="Email"
+                            required 
+                        />
+                    </label>
+                    <label>
+                        Location:
+                        <input 
+                            type="text" 
+                            name="location" 
+                            value={userData.location} 
+                            onChange={handleChange} 
+                            placeholder="Location"
+                        />
+                    </label>
+                    <label>
+                        Years of Experience:
+                        <input 
+                            type="number" 
+                            name="experiences" 
+                            value={userData.experiences} 
+                            onChange={handleChange} 
+                            placeholder="Years of Experience"
+                        />
+                    </label>
+                    <label>
+                        References:
+                        <input 
+                            type="text" 
+                            name="references" 
+                            value={userData.references} 
+                            onChange={handleChange} 
+                            placeholder="References"
+                        />
+                    </label>
+                    <label>
+                        Role:
+                        <select name="role" value={userData.role} onChange={handleChange} required>
+                            <option value="">Select Role</option>
+                            <option value="Cleaner">Cleaner</option>
+                            <option value="Houseowner">Houseowner</option>
+                        </select>
+                    </label>
+                    <button type="submit" disabled={submitting}>
+                      {submitting ? 'Updating...' : 'Update User'}
+                    </button>
                 </form>
             )}
             {message && <p>{message}</p>} 

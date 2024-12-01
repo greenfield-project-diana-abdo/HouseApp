@@ -13,7 +13,7 @@ const PropertyDetail = () => {
         const fetchPropertyDetails = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/properties/${id}`);
-                console.log(response.data)
+                console.log("Fetched Property Data:", response.data); // Log property 
                 setProperty(response.data);
             } catch (err) {
                 if (err.response) {
@@ -31,7 +31,7 @@ const PropertyDetail = () => {
 
     const handleDelete = async () => {
         try {
-            if(window.confirm("Are you sure, that you want to delete this property?")){
+            if (window.confirm("Are you sure you want to delete this property?")) {
                 await axios.delete(`http://localhost:8000/properties/${id}`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                 });
@@ -47,8 +47,14 @@ const PropertyDetail = () => {
     if (error) return <p>{error}</p>;
 
     const currentUserId = localStorage.getItem('userId'); 
-    const isOwner = currentUserId === String(property.userId); 
-   console.log(property)
+    const propertyUserId = property.userId._id ? String(property.userId._id) : String(property.userId); // correct user ID
+    const isOwner = currentUserId === propertyUserId; 
+
+    // Console logs for debugging
+    console.log("Current User ID:", currentUserId);  // Log 
+    console.log("Property User ID:", propertyUserId); // Log 
+    console.log("Is Owner:", isOwner); // Log 
+
     return (
         <div>
             <h2>Property Details</h2>
@@ -61,18 +67,23 @@ const PropertyDetail = () => {
                     <p><strong>House Size:</strong> {property.houseSize} m²</p>
                     <p><strong>Posted by:</strong> {`${property.userId.firstName} ${property.userId.surname}`}</p>
 
-                 
                     {isOwner && (
-                    <div>
-                        <button onClick={() => navigate(`/edit-property/${id}`)}>Edit</button>
-                        <button onClick={handleDelete}>Delete</button>
-                    </div>
-                )}
-            </div>
-        ) : (
-            <p>No property details available.</p>
-        )}
-    </div>
+                        <div>
+                            <button onClick={() => navigate(`/edit-property/${id}`)}>Edit</button>
+                            <button onClick={handleDelete}>Delete</button>
+                        </div>
+                    )}
+                    
+                    {isOwner && (
+                        <div>
+                            <h4>You are the owner of this property.</h4>
+                        </div>
+                    )}
+                </div>
+            ) : (
+                <p>No property details available.</p>
+            )}
+        </div>
     );
 };
 

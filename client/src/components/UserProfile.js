@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom'; 
 import { fetchUserById } from '../api/api'; 
 
 const UserProfile = () => {
     const { id } = useParams(); 
+    const navigate = useNavigate(); 
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
@@ -24,6 +25,9 @@ const UserProfile = () => {
         loadUser();
     }, [id]);
 
+    // Get the current user's role from local storage
+    const currentUserRole = localStorage.getItem('userRole');
+
     return (
         <div>
             <h2>User Profile</h2>
@@ -37,7 +41,13 @@ const UserProfile = () => {
                     <p>Years of Experience: {user.experiences}</p>
                     <p>References: {user.references}</p>
                     <p>Role: {user.role}</p>
-                 
+
+                    {/* Conditionally render the "Book an Appointment" button */}
+                    {currentUserRole === 'Houseowner' && (
+                        <button onClick={() => navigate(`/book-appointment/${id}`)}>
+                            Book an Appointment
+                        </button>
+                    )}
                 </div>
             ) : (
                 <p>No user found.</p>

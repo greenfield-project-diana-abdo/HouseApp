@@ -4,7 +4,7 @@ const cors = require("cors");
 const connection = require("./config/connection"); // Ensure this connects to your MongoDB
 const propertyRoutes = require("./routes/property.routes");
 const cleanerRoutes = require("./routes/cleaner.routes");
-const eventRoutes = require("./routes/event.routes");
+const bookingRoutes = require("./routes/event.routes");
 
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(cors());
 // routes
 app.use("/properties", propertyRoutes);
 app.use("/cleaners", cleanerRoutes);
-app.use("events", eventRoutes);
+app.use('/bookings', bookingRoutes);
 
 
 app.get('/', (req, res) => {
