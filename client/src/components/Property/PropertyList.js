@@ -28,28 +28,41 @@ const PropertyList = () => {
 
     if (loading) return <p>Loading properties...</p>;
     if (error) return <p>{error}</p>;
-console.log(properties)
 
     return (
-        <div>
-            <h2>Property Listings</h2>
+        <div className="container my-4">
+            <h2 className="text-center mb-4">Property Listings</h2>
             {properties.length === 0 ? (
-                <p>No properties available.</p>
+                <p className="text-center">No properties available.</p>
             ) : (
-                <ul>
+                <div className="row">
                     {properties.map(property => (
-                        <li class="list-unstyled" key={property._id}>
-                    
-                            <div className="card" style={{ width: '18rem', height: '5rem' }}>
-                            
-                            <Link to={`/properties/${property._id}`}>
-                                {property.userId && `${property.userId.firstName} ${property.userId.surname}`} - {property.title}
-                            </Link>
-
+                        <div className="col-md-4 mb-4" key={property._id}>
+                            <div className="card h-100 shadow-sm">
+                                <div className="card-body">
+                                    <h5 className="card-title text-primary">
+                                        {property.title}
+                                    </h5>
+                                    <p className="card-text">
+                                        <strong>Owner:</strong>{' '}
+                                        {property.userId 
+                                            ? `${property.userId.firstName} ${property.userId.surname}` 
+                                            : 'Unknown'}
+                                    </p>
+                                    <p className="card-text">
+                                        <strong>Type:</strong> {property.typeOfHouse || 'Not specified'}
+                                    </p>
+                                    <Link 
+                                        to={`/properties/${property._id}`} 
+                                        className="btn btn-primary btn-sm mt-2"
+                                    >
+                                        View Details
+                                    </Link>
+                                </div>
                             </div>
-                        </li>
+                        </div>
                     ))}
-                </ul>
+                </div>
             )}
         </div>
     );

@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightToBracket, faUser } from '@fortawesome/free-solid-svg-icons';
+
 const Navbar = () => {
     const navigate = useNavigate();
     const userRole = localStorage.getItem('userRole'); 
@@ -46,8 +49,17 @@ const Navbar = () => {
                 ) : (
                     <>
                     <div class=" d-flex">
-                        <li class="list-unstyled p-2"><Link to="/login" className="nav-link text-dark">Login</Link></li>
-                        <li class="list-unstyled p-2"><Link to="/register" className="nav-link text-dark">Register</Link></li>
+
+                        <FontAwesomeIcon icon={faRightToBracket} color="white" style={{ fontSize: '0.5cm' }}/>
+                        <button className="navbar-button">
+                        <li class="list-unstyled p-2"><Link to="/login" className="nav-link text-dark">Log in</Link></li>
+                        </button>
+
+                        <FontAwesomeIcon icon={faUser}  color="white"/>
+                        <button className="navbar-button">
+                        <li class="list-unstyled p-2"><Link to="/register" className="nav-link text-dark">Create an account</Link></li>
+                        </button>
+
                     </div>
                     </>
                 )}

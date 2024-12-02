@@ -24,29 +24,43 @@ const CleanersList = () => {
     }, []);
 
     return (
-        <div>
-            <h2>List of Cleaners</h2>
+        <div className="container mt-5">
+            <h2 className="mb-4 text-center">List of Cleaners</h2>
             {loading ? (
-                <p>Loading cleaners...</p>
+                <p className="text-center">Loading cleaners...</p>
             ) : (
-                <div className="cleaner-list">
+                <div className="row g-4">
                     {cleaners.length > 0 ? (
                         cleaners.map(cleaner => (
-                            <Link to={`/user/${cleaner._id}`} key={cleaner._id} className="cleaner-card"> 
-                                <h3>{cleaner.firstName} {cleaner.surname}</h3>
-                                <p>Email: {cleaner.email}</p>
-                                <p>Location: {cleaner.location}</p>
-                                <p>Years of Experience: {cleaner.experiences}</p>
-                                <p>References: {cleaner.references}</p>
-                                <p>Role: {cleaner.role}</p>
-                            </Link>
+                            <div className="col-md-4" key={cleaner._id}>
+                                <div className="card shadow-lg">
+                                    <img 
+                                        src="https://via.placeholder.com/150" 
+                                        alt={`${cleaner.firstName} ${cleaner.surname}`} 
+                                        className="card-img-top"
+                                    />
+                                    <div className="card-body">
+                                        <h5 className="card-title">{cleaner.firstName} {cleaner.surname}</h5>
+                                        <p className="card-text">
+                                            <strong>Email:</strong> {cleaner.email}<br />
+                                            <strong>Location:</strong> {cleaner.location}<br />
+                                            <strong>Years of Experience:</strong> {cleaner.experiences}<br />
+                                            <strong>References:</strong> {cleaner.references}<br />
+                                            <strong>Role:</strong> {cleaner.role}
+                                        </p>
+                                        <Link to={`/user/${cleaner._id}`} className="btn btn-primary">
+                                            View Profile
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
                         ))
                     ) : (
-                        <p>No cleaners found.</p>
+                        <p className="text-center">No cleaners found.</p>
                     )}
                 </div>
             )}
-            {message && <p>{message}</p>} 
+            {message && <p className="alert alert-danger mt-3">{message}</p>} 
         </div>
     );
 };

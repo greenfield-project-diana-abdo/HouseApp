@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import { register } from '../../api/api';
 
+
+
 const Register = () => {
     const [firstName, setFirstName] = useState('');
     const [surname, setSurname] = useState('');
@@ -44,11 +46,13 @@ const Register = () => {
     };
 
     return (
-        <div 
-        className="d-flex align-items-center justify-content-center"
-        style={{ height: '100vh' }} 
-        >
+        <div className="register-form align-items-center justify-content-center"
+            style={{ height: '100vh' }}>
+
+            <p className="register-slogan">Are you the House Owner or <br/>professional Housekeeper <br/>with rich experiences? </p>
+
             <div className="card p-4 align-items-center shadow p-3 mb-5 bg-body-tertiary rounded" style={{ maxWidth: '400px', width: '100%', background: '#f8f9fa' }}>
+             
             <h2 className="text-center mb-4">Register</h2>
 
             <form onSubmit={handleSubmit}>

@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+
+.homepage {
+  background-image: url('/Users/diana/Desktop/HouseApp/client/src/homepage.jpg'); /* Adjust path relative to CSS file */
+  background-size: cover; 
+  height: 100vh;
+  width: 100vw;
+}
+
+.login {
+  color: rgb(28, 53, 142); 
+}
+
+.slogan{
+  color: #FADA7A;
+  font-family: 'Pacifico', sans-serif;
+  font-size: 7rem;
+  text-shadow: 7px 7px 7px rgb(28, 53, 142);
+}
+
+.register-slogan{
+  font-family: 'Pacifico', sans-serif;
+  font-size: 3rem;
+  display: grid;
+  justify-items: center;
+}
+
+.navbar-button {
+  margin: 0.5rem;
+  margin-right: 2rem;
+  border: none;
+  border-radius: 5px;
+}
+
+.register-form {
+  display: grid;
+  grid-template-columns: 50% 50%; /* Two equal halves */
+  height: 100vh; 
+  background-color: #FADA7A;
+}
+
+.create-property{
+  background-color: #FADA7A;
+  height: 100vh;
+
+}
+.text-registered {
+  color: whitesmoke;
+}
+
+/* Create property */
+ 
+.text-register {
+  font-family: 'Pacifico', sans-serif;
+  display:flex;
+  justify-items: center;
+  font-size: 2rem;
+  padding: 2cm;
+  
+}
+
+.form {
+  display:grid;
+  justify-self: end;
+  margin-right: 15rem;
+  margin-left: 15rem;
+  padding: 1rem;
+  border: black, solid 1px;
+  background-color: white;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  border-radius: 1rem;
+  max-height: fit-content;
+  max-width: fit-content;
+}
+
+/* Card styling - cleaner list*/
+
+.card {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.card-img-top {
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-body {
+  text-align: left;
+}

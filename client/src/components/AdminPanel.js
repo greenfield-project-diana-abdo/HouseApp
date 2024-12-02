@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { fetchAllUsers, deleteUser, banUser, unbanUser } from '../api/api'; 
 import { Link } from 'react-router-dom';
+import './AdminPanel.css';
 
 const AdminPanel = () => {
     const [users, setUsers] = useState([]);
@@ -59,26 +60,28 @@ const AdminPanel = () => {
     };
 
     return (
-        <div>
-            <h2>Admin Panel</h2>
+        <div className="admin-panel">
+            <h2 className="admin-panel-title">Admin Panel</h2>
             {loading ? (
-                <p>Loading users...</p>
+                <p className="loading-message">Loading users...</p>
             ) : (
                 <div className="user-cards">
                     {users.map(user => (
                         <div key={user._id} className="user-card">
-                            <h3>{user.firstName} {user.surname}</h3>
-                            <p>Email: {user.email}</p>
-                            <p>Role: {user.role}</p>
-                            <button onClick={() => handleDelete(user._id)}>Delete</button>
-                            {user.banned ? (
-                                <button onClick={() => handleUnban(user._id)}>Unban</button> 
-                            ) : (
-                                <button onClick={() => handleBan(user._id)}>Ban</button> 
-                            )}
-                            <Link to={`/modify-user/${user._id}`}>
-                                <button>Modify</button>
-                            </Link>
+                            <h3 className="user-name">{user.firstName} {user.surname}</h3>
+                            <p className="user-email">Email: {user.email}</p>
+                            <p className="user-role">Role: {user.role}</p>
+                            <div className="action-buttons">
+                                <button className="delete-button" onClick={() => handleDelete(user._id)}>Delete</button>
+                                {user.banned ? (
+                                    <button className="unban-button" onClick={() => handleUnban(user._id)}>Unban</button> 
+                                ) : (
+                                    <button className="ban-button" onClick={() => handleBan(user._id)}>Ban</button> 
+                                )}
+                                <Link to={`/modify-user/${user._id}`}>
+                                    <button className="modify-button">Modify</button>
+                                </Link>
+                            </div>
                         </div>
                     ))}
                 </div>

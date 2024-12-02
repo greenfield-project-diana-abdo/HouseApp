@@ -3,8 +3,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { fetchUserById, updateUser } from '../api/api';
 
 const Settings = () => {
-    const { id } = useParams(); 
-    const navigate = useNavigate(); 
+    const { id } = useParams();
+    const navigate = useNavigate();
     const [userData, setUserData] = useState({
         firstName: '',
         surname: '',
@@ -17,20 +17,18 @@ const Settings = () => {
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
 
-    
     const loggedInUserId = localStorage.getItem('userId');
 
-    
     useEffect(() => {
         if (id !== loggedInUserId) {
             setMessage("You are not authorized to view this page.");
-            navigate('/'); 
+            navigate('/');
             return;
         }
-        
+
         const loadUserData = async () => {
             try {
-                const response = await fetchUserById(id); 
+                const response = await fetchUserById(id);
                 setUserData(response.data);
                 setLoading(false);
             } catch (error) {
@@ -50,112 +48,134 @@ const Settings = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            let response = await updateUser(id, userData);
-            console.log(response.data.updatedUser)
+            const response = await updateUser(id, userData);
             setUserData(response.data.updatedUser);
-        
-
             setMessage("User information updated successfully!");
-            navigate('/'); 
-
+            navigate('/');
         } catch (error) {
             console.error("Error updating user:", error);
             setMessage("Error updating user information.");
         }
     };
-console.log(userData)
+
     return (
-        <div className=" form-floating mt-4 mb-2 p-3 container d-flex flex-column align-items-center justify-content-center">
-
-            <h2 className="mb-3">User Settings</h2>
-            {loading ? (
-                <p class="spinner-border spinner-border-sm" aria-hidden="true">Loading user data...</p>
-            ) : (
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                        <input 
-                            type="text" 
-                            name="firstName" 
-                            value={userData.firstName} 
-                            onChange={handleChange} 
-                            placeholder="First Name"
-                            required 
-                            className="m-3"
-                        />
-                        <input 
-                            type="text" 
-                            name="surname" 
-                            value={userData.surname} 
-                            onChange={handleChange} 
-                            placeholder="Surname"
-                            required 
-                            className="m-3"
-                        />
+        <div className="settings">
+        <div className="container mt-5">
+            <div className="card shadow-lg p-4">
+                <h2 className="text-center mb-4">User Settings</h2>
+                {loading ? (
+                    <div className="text-center">
+                        <div className="spinner-border text-primary" role="status">
+                            <span className="visually-hidden">Loading...</span>
+                        </div>
                     </div>
+                ) : (
+                    <form onSubmit={handleSubmit}>
+                        <div className="row mb-3">
+                            <div className="col-md-6">
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    value={userData.firstName}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    placeholder="First Name"
+                                    required
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <input
+                                    type="text"
+                                    name="surname"
+                                    value={userData.surname}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    placeholder="Surname"
+                                    required
+                                />
+                            </div>
+                        </div>
 
-                    <div className="mb-3">
-                      
-                        <input 
-                            type="email" 
-                            name="email" 
-                            value={userData.email} 
-                            onChange={handleChange} 
-                            placeholder="Email"
-                            required 
-                            className="m-3"
-                        />
-                            
-                        <input 
-                            type="text" 
-                            name="location" 
-                            value={userData.location} 
-                            onChange={handleChange} 
-                            placeholder="Location"
-                            className="m-3"
-                        />
-                     </div>
-                    
+                        <div className="row mb-3">
+                            <div className="col-md-6">
+                                <input
+                                    type="email"
+                                    name="email"
+                                    value={userData.email}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    placeholder="Email"
+                                    required
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <input
+                                    type="text"
+                                    name="location"
+                                    value={userData.location}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    placeholder="Location"
+                                />
+                            </div>
+                        </div>
 
-                    <div>
-                        <input 
-                            type="number" 
-                            name="experiences" 
-                            value={userData.experiences} 
-                            onChange={handleChange} 
-                            placeholder="Years of Experience"
-                            className="m-3"
-                        />
-                        <input 
-                            type="text" 
-                            name="references" 
-                            value={userData.references} 
-                            onChange={handleChange} 
-                            placeholder="References"
-                            className="m-3"
-                        />
-                    </div>
+                        <div className="row mb-3">
+                            <div className="col-md-6">
+                                <input
+                                    type="number"
+                                    name="experiences"
+                                    value={userData.experiences}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    placeholder="Years of Experience"
+                                />
+                            </div>
+                            <div className="col-md-6">
+                                <input
+                                    type="text"
+                                    name="references"
+                                    value={userData.references}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                    placeholder="References"
+                                />
+                            </div>
+                        </div>
 
-                    <div className="d-flex justify-content-center">
-                        <select 
-                            name="role" 
-                            value={userData.role} 
-                            onChange={handleChange} 
-                            required
-                            className="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                        >
+                        <div className="mb-4">
+                            <label className="form-label" htmlFor="role">Role</label>
+                            <select
+                                name="role"
+                                value={userData.role}
+                                onChange={handleChange}
+                                required
+                                className="form-select"
+                            >
                                 <option value="">Select Role</option>
+                                <option value="Admin">Admin</option>
                                 <option value="Cleaner">Cleaner</option>
                                 <option value="Houseowner">Houseowner</option>
+                            </select>
+                        </div>
 
-                        </select>
-
-                        <button type="submit" className="btn btn-primary ms-4 ">Update User</button>
+                        <div className="text-center">
+                            <button type="submit" className="btn btn-primary w-50">
+                                Update User
+                            </button>
+                        </div>
+                    </form>
+                )}
+                {message && (
+                    <div className={`alert ${message.includes("successfully") ? 'alert-success' : 'alert-danger'} mt-4`}>
+                        {message}
                     </div>
-                </form>
-            )}
-            {message && <p>{message}</p>} 
+                )}
+            </div>
+        </div>
         </div>
     );
+
 };
 
 export default Settings;
