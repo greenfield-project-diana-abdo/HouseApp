@@ -42,8 +42,7 @@
 
 .create-property{
   background-color: #FADA7A;
-  height: 100vh;
-
+  background-size: cover; 
 }
 .text-registered {
   color: whitesmoke;
