@@ -5,22 +5,19 @@ const PropertySchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    description: {
+    typeOfHouse: {
         type: String,
-        required: true,
-    },
-    pricePerHour: {
-        type: Number,
-        required: true,
-    },
-    typeOfService: {
-        type: String,
-        enum: ['Deep cleaning', 'Laundry services', 'Carpet cleaning', 'Floor cleaning'],
+        enum: ['Apartment', 'Detached House', 'Semi-detached House', 'Townhouse', 'Bungalow', 'Villa', 'Cottage'],
         required: true,
     },
     houseSize: {
         type: Number,
         required: true, 
+    },
+    typeOfService: {
+        type: String,
+        enum: ['Deep cleaning', 'Laundry services', 'Carpet cleaning', 'Floor cleaning'],
+        required: true,
     },
     fullName: {
         type: String,

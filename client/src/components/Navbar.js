@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faRightToBracket, faUser } from '@fortawesome/free-solid-svg-icons';
+
 const Navbar = () => {
     const navigate = useNavigate();
     const userRole = localStorage.getItem('userRole'); 
@@ -14,34 +17,50 @@ const Navbar = () => {
     };
 
     return (
-        <nav>
+        <nav class="navbar bg-primary sticky-top d-flex justify-content-end">
             <ul>
                 {userRole ? ( 
                     <>
-                        <li><button onClick={handleLogout}>Logout</button></li>
                         {userRole === 'Houseowner' && (
                             <>
-                                <li><Link to="/cleanersList">Search for Cleaners</Link></li>
-                                <li><Link to={`/settings/${userId}`}>Settings</Link></li> 
-                                <li><Link to="/create-property">Create Property</Link></li> 
-                                <li><Link to="/propertyList">All Property</Link></li> 
-                                
+                            <div class=" d-flex">
+                                <li class="list-unstyled p-2"><Link to="/cleanersList" className="nav-link text-dark">Find your Housekeeper</Link></li>
+                                <li class="list-unstyled p-2"><Link to={`/settings/${userId}`} className="nav-link text-dark">Settings</Link></li> 
+                                <li class="list-unstyled p-2"><Link to="/create-property" className="nav-link text-dark">Create Property</Link></li> 
+                                <li class="list-unstyled p-2"> <Link to="/propertyList" className="nav-link text-dark">All Property</Link></li> 
+                             </div> 
                             </>
                         )}
                         {userRole === 'Cleaner' && (
                             <>
-                                <li><Link to="/propertyList">Search Posts</Link></li>
-                                <li><Link to={`/settings/${userId}`}>Settings</Link></li> 
+                                <li class="list-unstyled"><Link to="/propertyList" className="nav-link text-dark">Search Posts</Link></li>
+                                <li class="list-unstyled"><Link to={`/settings/${userId}`} className="nav-link text-dark">Settings</Link></li> 
                             </>
                         )}
                         {userRole === 'Admin' && (
-                            <li><Link to="/admin-panel">Admin Panel</Link></li>
+                            <li class="list-unstyled"><Link to="/admin-panel" className="nav-link text-dark">Admin Panel</Link></li>
                         )}
+                        <div class=" d-flex justify-content-end me-3">
+                         <li class="list-unstyled">
+                            <button onClick={handleLogout} class="btn btn-light">Logout</button> 
+                        </li>
+                        </div>
                     </>
                 ) : (
                     <>
-                        <li><Link to="/login">Login</Link></li>
-                        <li><Link to="/register">Register</Link></li>
+                    <div class=" d-flex">
+
+                        <FontAwesomeIcon icon={faRightToBracket} color="white" style={{ fontSize: '0.5cm' }}/>
+                        <button className="navbar-button">
+                        <li class="list-unstyled p-2"><Link to="/login" className="nav-link text-dark">Log in</Link></li>
+                        </button>
+
+                        <FontAwesomeIcon icon={faUser}  color="white"/>
+                        <button className="navbar-button">
+                        <li class="list-unstyled p-2"><Link to="/register" className="nav-link text-dark">Create an account</Link></li>
+                        </button>
+
+                    </div>
                     </>
                 )}
             </ul>

@@ -13,6 +13,10 @@ import UserProfile from './components/UserProfile';
 import Settings from './components/Settings'; 
 import CreateProperty from './components/CreateProperty'; 
 import EditProperty from './components/Property/EditProperty'; 
+import ImageUpload from './components/Images/ImageUpload';
+import ViewImage from './components/Images/ViewImage.js';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => {
@@ -34,6 +38,8 @@ const App = () => {
                 <Route path="/create-property" element={<CreateProperty />} /> {/* creating properties */}
                 <Route path="/edit-property/:id" element={<EditProperty />} /> {/* Route for editing a property's details */}
                 <Route path="/" element={<h1>Welcome to the Property Management App</h1>} />
+                <Route path="/upload" element={<ImageUpload/>} />
+                <Route path="/view-image/:imagePath" element={<ViewImage />} />
             </Routes>
         </>
     );

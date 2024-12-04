@@ -1,0 +1,87 @@
+.admin-panel {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.admin-panel-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.loading-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #777;
+}
+
+.user-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.user-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.user-name {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.user-email, .user-role {
+    color: #555;
+    margin: 5px 0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.delete-button {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.ban-button {
+    background-color: #f39c12;
+    color: #fff;
+}
+
+.unban-button {
+    background-color: #2ecc71;
+    color: #fff;
+}
+
+.modify-button {
+    background-color: #3498db;
+    color: #fff;
+}

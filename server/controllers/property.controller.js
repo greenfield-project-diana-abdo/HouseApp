@@ -1,10 +1,10 @@
 const Property = require('../model/Property'); 
 
 const createProperty = async (req, res) => {
-    const { title, description, pricePerHour, typeOfService, houseSize } = req.body;
+    const { title, typeOfHouse, houseSize, numberOfRooms, typeOfService } = req.body;
 
 
-    if (!title || !description || !pricePerHour || !typeOfService || !houseSize ) {
+    if (!title || !typeOfHouse || !houseSize || !numberOfRooms || !typeOfService ) {
         return res.status(400).send({ msg: "All fields are required." });
     }
 
@@ -19,10 +19,10 @@ const createProperty = async (req, res) => {
     try {
         const newProperty = new Property({
             title,
-            description,
-            pricePerHour,
-            typeOfService,
+            typeOfHouse,
             houseSize,
+            numberOfRooms,
+            typeOfService,
             fullName,
             userId: user_Id // Save the user's ID
         });
@@ -62,7 +62,7 @@ const getPropertyById = async (req, res) => {
 
 const updateProperty = async (req, res) => {
     const { id } = req.params; 
-    const { title, description, pricePerHour, typeOfService, houseSize } = req.body;
+    const { title, typeOfHouse, houseSize, numberOfRooms, typeOfService } = req.body;
 
     try {
         const property = await Property.findById(id);
@@ -77,8 +77,8 @@ console.log(req.user)
         }
 
         property.title = title || property.title;
-        property.description = description || property.description;
-        property.pricePerHour = pricePerHour || property.pricePerHour;
+        property.typeOfHouse = typeOfHouse || property.typeOfHouse;
+        property.numberOfRooms = numberOfRooms || property.numberOfRooms;
         property.typeOfService = typeOfService || property.typeOfService;
         property.houseSize = houseSize || property.houseSize; 
       

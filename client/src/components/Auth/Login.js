@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { login } from '../../api/api';
 import { useNavigate } from 'react-router-dom';
 
+import '../../index.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBroom } from '@fortawesome/free-solid-svg-icons';
+
+
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -43,25 +48,38 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <h2>Login</h2>
+        <div className="homepage form-floating mt-4 mb-2 p-3 container d-flex flex-column align-items-center justify-content-center">
+            <p className="slogan">The Key to Clean Living Starts Here <FontAwesomeIcon icon={faBroom} /></p>
+            
+            <p className="text-registered">Already registered?</p>
+            <h2 className="login mb-3">Log in</h2>
+
             <form onSubmit={handleSubmit}>
-                <input 
+                <div className="mb-3">
+                <input
                     type="email" 
-                    placeholder="Email" 
+                    placeholder="name@example.com" 
                     value={email} 
                     onChange={(e) => setEmail(e.target.value)} 
                     required 
+                    class="form-control"
                 />
+                </div>
+                <div className="mb-3">
                 <input 
                     type="password" 
                     placeholder="Password" 
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
                     required 
+                    class="form-control" 
                 />
-                <button type="submit">Login</button>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Login</button>
+               
             </form>
+          
             {message && <p>{message}</p>}
         </div>
     );
